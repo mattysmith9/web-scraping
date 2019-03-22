@@ -15,8 +15,8 @@ async function scrapeJobHeader() {
 			const title = resultTitle.text();
 			const url = resultTitle.attr('href');
 			const datePosted = new Date($(element).children('time').attr('datetime'));
-			const hood = $(element).find('.result-hood').text();
-			const scrapeResult = { title, url, datePosted, hood };
+			const neighborhood = $(element).find('.result-hood').text();
+			const scrapeResult = { title, url, datePosted, neighborhood };
 			scrapeResults.push(scrapeResult);
 		});
 		return scrapeResults;
