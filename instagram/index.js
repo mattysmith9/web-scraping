@@ -44,8 +44,6 @@ const cheerio = require('cheerio');
     picture_url: user.profiel_pic_url_hd,
     posts: posts
   };
-  
-  console.log(instagram_data);
 
-  debugger;
+  console.log(instagram_data);
 })();
