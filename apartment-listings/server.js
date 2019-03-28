@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
+const config = require('./config/mongodb');
 
 const app = express();
 
@@ -10,11 +11,17 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const db = require('./config/mongodb').mongoURI;
+/* DATABASE CONFIG */
+const db = config.get('mongoURI');
+
+/* CONNECT TO MONGO */
 mongoose
-  .connect(db)
+  .connect(db, { useNewUrlParser: true, useCreateIndex: true })
   .then(() => console.log('Mongo Connected'))
   .catch((err) => console.log(err));
+
+/* USE ROUTES */
+app.use('/api/listings', require('./routes/api/listings'));
 
 const port = process.env.PORT || 5000;
 
