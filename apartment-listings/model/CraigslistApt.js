@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const craigslistAptSchema = new mongoose.Schema({
+const craigslistAptSchema = new Schema({
   url: String,
   timestamp: Date,
   title: String,
