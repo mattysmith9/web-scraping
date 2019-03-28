@@ -1,5 +1,5 @@
 {
-  "name": "apartment-listings",
+  "name": "crunchbase",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,11 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
-    "express": "^4.16.4",
-    "mongoose": "^5.4.19",
-    "nodemon": "^1.18.10",
+    "nightmare": "^3.0.1",
     "request": "^2.88.0",
     "request-promise": "^4.2.4"
   }

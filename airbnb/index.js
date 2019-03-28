@@ -44,6 +44,7 @@ async function scrapeDescriptionPage(url, page) {
     const $ = await cheerio.load(html);
     roomText = $('#room').text();
 
+
     const pricePerNight = $(
       '#room > div > div > div > div > div > div > div > div > div > div:nth-child(1) > div > div > div > div > div > div > div > div:nth-child(1) > span > div > div > span > span'
     ).text();
@@ -95,7 +96,8 @@ async function main() {
 
 main();
 
-/* const guestMatches = roomText.match(/\d+ guest/);
+/* 
+    const guestMatches = roomText.match(/\d+ guest/);
     let guestsAllowed = 'N/A';
     if (guestMatches != null) {
       guestsAllowed = guestMatches[0];
@@ -117,4 +119,5 @@ main();
     let totalBaths = 'N/A';
     if (bathMatches != null) {
       totalBaths = bathMatches[0];
-    } */
+    } 
+*/
