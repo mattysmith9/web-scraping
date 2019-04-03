@@ -3,7 +3,7 @@ const cheerio = require('cheerio');
 const request = require('request-promise');
 const RedditArticle = require('./RedditArticle');
 
-// INITIALIZE MONGO STORE
+/* INITIALIZE MONGO STORE */
 async function mongoConnect() {
   await mongoose.connect(
     'mongodb://redditdb:csrnQ92UrNzsyX3@ds049104.mlab.com:49104/reddit-scrape',
@@ -12,7 +12,7 @@ async function mongoConnect() {
   console.log('Connected to Mlab!');
 }
 
-// BASIC IMPLEMENTATION WRANGLING JUST THE TITLES.
+/* BASIC IMPLEMENTATION WRANGLING JUST THE TITLES. */
 async function redditScrape() {
   const html = await request.get(
     'https://www.reddit.com/r/popular/?geo_filter=US_VT'
