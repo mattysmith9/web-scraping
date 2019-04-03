@@ -25,17 +25,26 @@ async function scrapeApts() {
       return { title, timestamp, url, price, neighborhood, size };
     })
     .get();
+
   return apartments;
 }
 
 async function craigslistAptToMongoDb(aptArray) {
   const promises = aptArray.map(async (apartment) => {
-    const aptFromDb = await CraigslistApt.findOne({ url: apartment.url });
-    if (!aptFromDb) {
+    const apartmentFromMongoDb = await CraigslistApt.findOne({
+      url: apartment.url
+    }).sort([
+      [
+        'when',
+        1
+      ]
+    ]);
+    if (!apartmentFromMongoDb) {
       const newApt = new CraigslistApt(apartment);
       return newApt.save();
     }
   });
+
   await Promise.all(promises);
 }
 

@@ -3,7 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const path = require('path');
-const config = require('./config/mongodb');
+const config = require('../config/mongodb');
 
 const app = express();
 
@@ -21,7 +21,7 @@ mongoose
   .catch((err) => console.log(err));
 
 /* USE ROUTES */
-app.use('/api/listings', require('./routes/api/listings'));
+app.use('/api/listings', require('../routes/api/listings'));
 
 const port = process.env.PORT || 5000;
 
