@@ -9,16 +9,16 @@ const initialState = {
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case GET_LISTING:
-      return {
-        ...state,
-        profile: action.payload,
-        loading: false
-      };
     case GET_LISTINGS:
       return {
         ...state,
-        profiles: action.payload,
+        listings: action.payload,
+        loading: false
+      };
+    case GET_LISTING:
+      return {
+        ...state,
+        listing: action.payload,
         loading: false
       };
     default:
