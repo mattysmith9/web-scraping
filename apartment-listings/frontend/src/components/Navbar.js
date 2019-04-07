@@ -1,26 +1,25 @@
 import React from 'react';
-import { Container } from './Container';
 import styled from 'styled-components';
+import { Container } from './Container';
 
 const Wrapper = styled.div`
-  padding: 1.5rem 0;
+  padding: 1rem 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  a {
-    color: #10455b;
-    font-size: 1.1rem;
-    padding: 0.5rem 0.7rem;
-    font-weight: 100;
+  h1 {
+    font-size: 2.5rem;
+    color: green;
   }
-  a:hover {
-    transform: scale(1.125);
-    transition: ease-in-out;
+  p {
+    font-size: 1.2rem;
+    color: black;
   }
 `;
 
-const Navbar = () => (
+export const Navbar = () => (
   <Wrapper as={Container}>
-    <h1>Apartment Data</h1>
+    <h1>Vermont Apartment Data</h1>
+    <p>Updated Daily</p>
   </Wrapper>
 );

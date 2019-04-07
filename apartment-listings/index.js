@@ -1,24 +1,30 @@
-const request = require('request-promise');
-const cheerio = require('cheerio');
-const mongoose = require('mongoose');
-const CraigslistApt = require('./model/CraigslistApt');
-const mongoDbUrl = require('./config/mongodb');
+import { load } from 'cheerio';
+import { connect, disconnect } from 'mongoose';
+import { get } from 'request-promise';
+import mongoDbUrl from './config/mongodb';
+import CraigslistApt, { findOne } from './model/CraigslistApt';
 
 const url = 'https://vermont.craigslist.org/search/apa';
 
 async function scrapeApts() {
-  const result = await request.get(url);
-  const $ = await cheerio.load(result);
+  const result = await get(url);
+  const $ = await load(result);
   const apartments = $('.result-info')
     .map((i, element) => {
       const titleElement = $(element).find('.result-title');
       const title = titleElement.text();
       const url = titleElement.attr('href');
       const timestamp = new Date(
-        $(element).find('.result-date').attr('datetime')
+        $(element)
+          .find('.result-date')
+          .attr('datetime')
       );
-      const price = $(element).find('.result-price').text();
-      const neighborhood = $(element).find('.result-hood').text();
+      const price = $(element)
+        .find('.result-price')
+        .text();
+      const neighborhood = $(element)
+        .find('.result-hood')
+        .text();
       const squareFeet = $(element).find('.housing');
       const size = squareFeet.text().trim();
 
@@ -30,15 +36,10 @@ async function scrapeApts() {
 }
 
 async function craigslistAptToMongoDb(aptArray) {
-  const promises = aptArray.map(async (apartment) => {
-    const apartmentFromMongoDb = await CraigslistApt.findOne({
+  const promises = aptArray.map(async apartment => {
+    const apartmentFromMongoDb = await findOne({
       url: apartment.url
-    }).sort([
-      [
-        'when',
-        1
-      ]
-    ]);
+    }).sort([['when', 1]]);
     if (!apartmentFromMongoDb) {
       const newApt = new CraigslistApt(apartment);
       return newApt.save();
@@ -50,11 +51,14 @@ async function craigslistAptToMongoDb(aptArray) {
 
 async function main() {
   try {
-    await mongoose.connect(mongoDbUrl, { useNewUrlParser: true });
+    await connect(
+      mongoDbUrl,
+      { useNewUrlParser: true }
+    );
     console.log('Connected to mongodb');
     const aptArray = await scrapeApts();
     await craigslistAptToMongoDb(aptArray);
-    mongoose.disconnect();
+    disconnect();
     console.log('disconnected from mongodb!');
   } catch (err) {
     console.error(err);

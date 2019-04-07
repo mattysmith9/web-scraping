@@ -1,6 +1,6 @@
 'use strict';
 
-const MongoClient = require('mongodb').MongoClient;
+import { MongoClient } from 'mongodb';
 
 class ApartmentStore {
   constructor(dbUrl) {
@@ -19,7 +19,7 @@ class ApartmentStore {
       this.dbClient = await MongoClient.connect(this.dbUrl, {
         useNewUrlParser: true
       });
-      console.log('Connected to the APT database!');
+      console.log('Connected to the apartment database!');
       return this.dbClient;
     }
   }
@@ -33,12 +33,7 @@ class ApartmentStore {
 
   async all() {
     let collection = await this.collection();
-    return collection.find({}).sort([
-      [
-        'when',
-        1
-      ]
-    ]);
+    return collection.find({}).sort([['when', 1]]);
   }
 
   async deleteAll() {
@@ -51,4 +46,4 @@ class ApartmentStore {
   }
 }
 
-module.exports = ApartmentStore;
+export default ApartmentStore;

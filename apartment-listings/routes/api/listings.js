@@ -1,8 +1,7 @@
 'use strict';
-const express = require('express');
-const router = express.Router();
-const mongoose = require('mongoose');
-const Listing = require('../../model/CraigslistApt');
+import { Router } from 'express';
+import { find, findById } from '../../model/CraigslistApt';
+const router = Router();
 
 /*
  * @route GET api/listings/test
@@ -19,7 +18,7 @@ router.get('/test', (req, res) => res.json({ msg: 'Listings Work' }));
 router.get('/all', (req, res) => {
   const errors = {};
 
-  Listing.find()
+  find()
     .populate('apartment', ['address', 'price'])
     .then(listings => {
       if (!listings) {
@@ -37,11 +36,11 @@ router.get('/all', (req, res) => {
  * @access PUBLIC
  */
 router.get('/:id', (req, res) => {
-  Listing.findById(req.params.id)
+  findById(req.params.id)
     .then(listing => res.json(listing))
     .catch(err =>
       res.status(404).json({ nolistingfound: 'No listing found with that ID' })
     );
 });
 
-module.exports = router;
+export default router;

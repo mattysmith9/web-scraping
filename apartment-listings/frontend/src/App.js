@@ -1,12 +1,18 @@
 import React, { Component } from 'react';
-import './App.css';
+import { Container } from './components/Container';
+import { Navbar } from './components/Navbar';
+import { Card } from './components/Card';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <h1>Fuck</h1>
-      </div>
+      <Container>
+        <Navbar />
+        <Card>
+          <h1>FUCKY</h1>
+          <h2>FUCK</h2>
+        </Card>
+      </Container>
     );
   }
 }

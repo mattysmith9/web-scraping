@@ -1,24 +1,25 @@
 'use strict';
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const path = require('path');
-const config = require('../config/mongodb');
+import express from 'express';
+import { connect } from 'mongoose';
+import { urlencoded, json } from 'body-parser';
+import { get } from '../config/mongodb';
 
 const app = express();
 
 /* BODY PARSER MIDDLEWARE */
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(urlencoded({ extended: false }));
+app.use(json());
 
 /* DATABASE CONFIG */
-const db = config.get('mongoURI');
+const db = get('mongoURI');
 
 /* CONNECT TO MONGO */
-mongoose
-  .connect(db, { useNewUrlParser: true, useCreateIndex: true })
+connect(
+  db,
+  { useNewUrlParser: true, useCreateIndex: true }
+)
   .then(() => console.log('Mongo Connected'))
-  .catch((err) => console.log(err));
+  .catch(err => console.log(err));
 
 /* USE ROUTES */
 app.use('/api/listings', require('../routes/api/listings'));

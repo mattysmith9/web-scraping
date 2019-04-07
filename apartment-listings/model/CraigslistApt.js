@@ -1,5 +1,6 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+import { Schema as _Schema, model } from 'mongoose';
+
+const Schema = _Schema;
 
 const craigslistAptSchema = new Schema({
   url: String,
@@ -10,6 +11,6 @@ const craigslistAptSchema = new Schema({
   size: {}
 });
 
-const CraigslistApt = mongoose.model('CraigslistApt', craigslistAptSchema);
+const CraigslistApt = model('CraigslistApt', craigslistAptSchema);
 
-module.exports = CraigslistApt;
+export default CraigslistApt;
